@@ -17,7 +17,8 @@ class assesmentManager(scanner):
         self.start_port_scan = portScanner(targets, port)
 
     def scan(self):
-        print(f"scanning port targets: {self.targets}")
+        for i in self.targets:
+            print(f"scanning port targets: {i}")
         self.start_vuln_scan.scan()
         self.start_port_scan.scan()
 
@@ -46,15 +47,16 @@ class portScanner(scanner):
 
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
             s.settimeout(0.2)
-            if s.connect_ex((self.targets,self.port)) == 0:
-                try:
-                    banner = s.recv(1024).decode(errors = "ignore").strip()
-                    print(f"[SUCCESS] {banner}")
-                except socket.timeout:
-                    print("[ERROR] dint work")
-                print(f"[OPEN] {self.targets}:{self.port} -> {banner}")
-
-        print("here 1")
+            for i in self.targets:
+                for k in self.port:
+                    if s.connect_ex((i,k)) == 0:
+                        try:
+                            banner = s.recv(1024).decode(errors = "ignore").strip()
+                            print(f"[SUCCESS] {banner}")
+                            print(f"[OPEN] {i}:{k} -> {banner}")
+                        except socket.timeout:
+                            print("[ERROR] dint work")
+                        
         
-assesment1 = assesmentManager("127.0.0.1", 8080)
+assesment1 = assesmentManager(["127.0.0.1", "127.0.0.2", "127.0.0.3" ], [8080, 2222, 9000])
 assesment1.scan()
