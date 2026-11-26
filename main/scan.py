@@ -58,5 +58,5 @@ class portScanner(scanner):
                             print("[ERROR] dint work")
                         
         
-assesment1 = assesmentManager(["127.0.0.1", "127.0.0.2", "127.0.0.3" ], [8080, 2222, 9000])
+assesment1 = assesmentManager(["127.0.0.1", "127.0.0.2", "127.0.0.3" ], [5000, 2222, 9000])
 assesment1.scan()

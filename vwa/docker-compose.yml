@@ -1,0 +1,16 @@
+services:
+  web:
+    build: .
+    container_name: security-lab
+    ports:
+      - "5000:5000"
+    environment:
+      DATABASE_URL: sqlite:////app/instance/lab.db
+      SECRET_KEY: ${SECRET_KEY}
+      COOKIE_SECURE: "false"
+    volumes:
+      - lab_data:/app/instance
+    restart: unless-stopped
+
+volumes:
+  lab_data:
